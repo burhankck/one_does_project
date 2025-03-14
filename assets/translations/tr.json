@@ -3,11 +3,13 @@
       "bookListAppBar": "Kitap Listesi"
     },
     "drawer": {
-      "themeChange": "Tema değiştir.",
-      "languageChange": "Dil değiştir",
+      "themeChange": "Tema Değiştir",
+      "languageChange": "Dili Değiştir",
       "settings": "Ayarlar",
       "turkish": "Türkçe",
-      "english": "İngilizce"
+      "english": "İngilizce",
+      "lightTheme":"Açık Tema",
+      "darkTheme":"Koyu Tema"
     },
     "textField": {
       "search": "Arama Yapınız"

@@ -7,7 +7,9 @@
     "languageChange": "Change Language",
     "settings": "Settings",
     "turkish": "Turkish",
-    "english": "English"
+    "english": "English",
+    "lightTheme":"Light Theme",
+      "darkTheme":"Dark Theme"
   },
   "textField": {
     "search": "Search"

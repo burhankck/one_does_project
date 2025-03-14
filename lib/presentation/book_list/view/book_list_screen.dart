@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
+import 'package:one_does_project/presentation/resources/image_path_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
-import 'package:one_does_project/presentation/resources/values_manager.dart';
 import 'package:one_does_project/presentation/widgets/appbar_menu.dart';
-import 'package:one_does_project/presentation/widgets/custom_card.dart';
+import 'package:one_does_project/presentation/widgets/bottom_Navigation_Bar.dart';
 import 'package:one_does_project/presentation/widgets/drawer_menu.dart';
+import 'package:one_does_project/presentation/widgets/list_tile_card.dart';
 import 'package:one_does_project/presentation/widgets/search_bar.dart';
 import 'package:one_does_project/translations/locale_keys.g.dart';
 
@@ -55,9 +56,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  bottomNavigationBar: BottomNavigatenBar(),
       appBar: CustomAppBarTitle(
-        title: Text(LocaleKeys.appBar_bookListAppBar.tr(), style: getBoldPrimaryStyleTitle()),
+        title: Text(
+          LocaleKeys.appBar_bookListAppBar.tr(),
+          style: getBoldPrimaryStyleTitle(),
+        ),
       ),
       drawer: DrawerMenu(),
       body: Padding(
@@ -70,23 +73,38 @@ class _HomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: _filteredItems.length,
                 itemBuilder: (context, index) {
-                  return CustomCard(
-                    title: "asdasd",
-                    subTitle: "asdasdasd",
-                    leading: Container(
-                      child: Center(
-                        child: Text(
-                          "${index + 1}",
-                          style: getSemiBoldWhiteStyle(),
-                        ),
-                      ),
-                      width: AppSizeWidth.s30,
-                      height: AppSizeHeight.s30,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.instance.primaryLightColor,
+                  return CustomListTileCard(
+                    title: "Kitap Adı",
+                    leading: Padding(
+                      padding: EdgeInsetsDirectional.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset(ImagePathManager.instance.bookImage),
                       ),
                     ),
+                    contentPadding: EdgeInsets.zero,
+                    subTitle: Text("Kitap SubTitle"),
+                    visualDensity: VisualDensity.compact,
+                    trailing: Padding(
+                      padding: EdgeInsetsDirectional.symmetric(vertical: 5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: ColorManager.instance.primary,
+                            ),
+                            onPressed: () {
+                              // Favori ekleme işlemi yapılabilir
+                              // Örneğin, bir state değişikliği ya da favori listesi eklenebilir
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {},
                   );
                 },
               ),

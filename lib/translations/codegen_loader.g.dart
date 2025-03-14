@@ -23,7 +23,9 @@ class CodegenLoader extends AssetLoader{
     "languageChange": "Change Language",
     "settings": "Settings",
     "turkish": "Turkish",
-    "english": "English"
+    "english": "English",
+    "lightTheme": "Light Theme",
+    "darkTheme": "Dark Theme"
   },
   "textField": {
     "search": "Search"
@@ -34,11 +36,13 @@ static const Map<String,dynamic> _tr = {
     "bookListAppBar": "Kitap Listesi"
   },
   "drawer": {
-    "themeChange": "Tema değiştir.",
-    "languageChange": "Dil değiştir",
+    "themeChange": "Tema Değiştir",
+    "languageChange": "Dili Değiştir",
     "settings": "Ayarlar",
     "turkish": "Türkçe",
-    "english": "İngilizce"
+    "english": "İngilizce",
+    "lightTheme": "Açık Tema",
+    "darkTheme": "Koyu Tema"
   },
   "textField": {
     "search": "Arama Yapınız"

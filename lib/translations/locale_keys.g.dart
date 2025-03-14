@@ -10,6 +10,8 @@ abstract class  LocaleKeys {
   static const drawer_settings = 'drawer.settings';
   static const drawer_turkish = 'drawer.turkish';
   static const drawer_english = 'drawer.english';
+  static const drawer_lightTheme = 'drawer.lightTheme';
+  static const drawer_darkTheme = 'drawer.darkTheme';
   static const drawer = 'drawer';
   static const textField_search = 'textField.search';
   static const textField = 'textField';

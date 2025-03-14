@@ -2,71 +2,69 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:one_does_project/presentation/language_change/view_model/language_cubit.dart';
-import 'package:one_does_project/presentation/language_change/view_model/langueage_state.dart';
+import 'package:one_does_project/app/view_model/theme_cubit.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
 import 'package:one_does_project/presentation/resources/icon_manager.dart';
-import 'package:one_does_project/presentation/resources/image_path_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 import 'package:one_does_project/translations/locale_keys.g.dart';
 
-class ChangeLanguage extends StatefulWidget {
-  const ChangeLanguage({super.key});
+class ChangeTheme extends StatefulWidget {
+  const ChangeTheme({super.key});
 
   @override
-  State<ChangeLanguage> createState() => _ChangeLanguageState();
+  State<ChangeTheme> createState() => _ChangeThemeState();
 }
 
-class _ChangeLanguageState extends State<ChangeLanguage> {
+class _ChangeThemeState extends State<ChangeTheme> {
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LanguageCubit, LanguageState, String>(
-      selector: (state) => state.selectedLang,
-      builder: (context, selectedLang) {
+    return BlocBuilder<ThemeCubit, ThemeMode>(
+      builder: (context, themeMode) {
         return ExpansionTile(
-          leading: Icon(LineIcons.globe, color: ColorManager.instance.primary),
+          leading: Icon(
+            LineIcons.paintBrush,
+            color: ColorManager.instance.primary,
+          ),
           title: Text(
-            LocaleKeys.drawer_languageChange.tr(),
+            LocaleKeys.drawer_themeChange.tr(),
             style: getRegularBlackStyle(),
           ),
           textColor: ColorManager.instance.black,
           children: [
             ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Image.asset(ImagePathManager.instance.turkishFlagsImage),
+              leading: Icon(
+                Icons.wb_sunny,
+                color: ColorManager.instance.primary,
               ),
               title: Text(
-                LocaleKeys.drawer_turkish.tr(),
+                LocaleKeys.drawer_lightTheme.tr(),
                 style: getRegularBlackStyle(),
               ),
               trailing:
-                  selectedLang == "tr"
+                  themeMode == ThemeMode.light
                       ? IconManager.check
                       : SizedBoxManager.instance.shrink,
               onTap: () {
-                context.setLocale(const Locale("tr"));
-                context.read<LanguageCubit>().changeLanguage(false);
+                context.read<ThemeCubit>().toggleTheme();
               },
             ),
             const Divider(color: Colors.grey),
             ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Image.asset(ImagePathManager.instance.englandFlagsImage),
+              leading: Icon(
+                Icons.nights_stay, // Dark theme iconu
+                color: ColorManager.instance.primary,
               ),
               title: Text(
-                LocaleKeys.drawer_english.tr(),
+                LocaleKeys.drawer_darkTheme.tr(),
                 style: getRegularBlackStyle(),
               ),
               trailing:
-                  selectedLang == "en"
+                  themeMode == ThemeMode.dark
                       ? IconManager.check
                       : SizedBoxManager.instance.shrink,
               onTap: () {
-                context.setLocale(const Locale("en"));
-                context.read<LanguageCubit>().changeLanguage(true);
+                context.read<ThemeCubit>().toggleTheme();
               },
             ),
           ],
