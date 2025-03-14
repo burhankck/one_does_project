@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 import 'package:one_does_project/presentation/resources/values_manager.dart';
 import 'package:one_does_project/presentation/widgets/appbar_menu.dart';
-import 'package:one_does_project/presentation/widgets/bottom_Navigation_Bar.dart';
 import 'package:one_does_project/presentation/widgets/custom_card.dart';
 import 'package:one_does_project/presentation/widgets/drawer_menu.dart';
 import 'package:one_does_project/presentation/widgets/search_bar.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       //  bottomNavigationBar: BottomNavigatenBar(),
       appBar: CustomAppBarTitle(
-        title: Text("Kitap Listesi", style: getBoldPrimaryStyleTitle()),
+        title: Text(LocaleKeys.appBar_bookListAppBar.tr(), style: getBoldPrimaryStyleTitle()),
       ),
       drawer: DrawerMenu(),
       body: Padding(

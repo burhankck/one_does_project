@@ -1,10 +1,13 @@
 // ignore_for_file: unused_element
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:one_does_project/presentation/language_change/view/language_screen.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 import 'package:one_does_project/presentation/widgets/driver_item.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({super.key});
@@ -38,12 +41,19 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Ayarlar', style: getRegularBlackStyleTitle()),
+                    child: Text(
+                      LocaleKeys.drawer_settings.tr(),
+                      style: getRegularBlackStyleTitle(),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ListView(
-                    children: [_buildChangeTheme(), _buildChangeLanguage()],
+                    children: [
+                      _buildChangeTheme(),
+                      // _buildChangeLanguage(),
+                      ChangeLanguage(),
+                    ],
                   ),
                 ),
               ],
@@ -60,7 +70,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         Icons.nightlight_round,
         color: ColorManager.instance.primary,
       ), //
-      text: "Tema Değiştir",
+      text: LocaleKeys.drawer_themeChange.tr(),
       onTap: () {},
     );
   }
@@ -68,7 +78,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   DrawerItem _buildChangeLanguage() {
     return DrawerItem(
       icon: Icon(Icons.language, color: ColorManager.instance.primary),
-      text: "Dil Değiştir",
+      text: LocaleKeys.drawer_languageChange.tr(),
       onTap: () {},
     );
   }
