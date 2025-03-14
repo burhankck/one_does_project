@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class ConstantSearchBar extends StatelessWidget {
   const ConstantSearchBar({
@@ -19,7 +21,7 @@ class ConstantSearchBar extends StatelessWidget {
       controller: searchTextController,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search),
-        hintText: "Arama yapınız",
+        hintText: LocaleKeys.textField_search.tr(),
         suffixIcon: InkWell(
           onTap: () {
             if (searchTextController != null) {

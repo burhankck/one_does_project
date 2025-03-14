@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:one_does_project/app/view/change_theme.dart';
 import 'package:one_does_project/presentation/language_change/view/language_screen.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
@@ -50,8 +51,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 Expanded(
                   child: ListView(
                     children: [
-                      _buildChangeTheme(),
-                      // _buildChangeLanguage(),
+                      ChangeTheme(),
                       ChangeLanguage(),
                     ],
                   ),
@@ -61,25 +61,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
           ),
         ),
       ),
-    );
-  }
-
-  DrawerItem _buildChangeTheme() {
-    return DrawerItem(
-      icon: Icon(
-        Icons.nightlight_round,
-        color: ColorManager.instance.primary,
-      ), //
-      text: LocaleKeys.drawer_themeChange.tr(),
-      onTap: () {},
-    );
-  }
-
-  DrawerItem _buildChangeLanguage() {
-    return DrawerItem(
-      icon: Icon(Icons.language, color: ColorManager.instance.primary),
-      text: LocaleKeys.drawer_languageChange.tr(),
-      onTap: () {},
     );
   }
 }

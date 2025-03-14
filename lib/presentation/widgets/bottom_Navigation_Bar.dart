@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:one_does_project/presentation/resources/image_path_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 
-class BottomNavigatenBar extends StatefulWidget {
-  const BottomNavigatenBar({super.key});
+class BottomNavigateBar extends StatefulWidget {
+  const BottomNavigateBar({super.key});
 
   @override
-  State<BottomNavigatenBar> createState() => _BottomNavigatenBarState();
+  State<BottomNavigateBar> createState() => _BottomNavigateBarState();
 }
 
-class _BottomNavigatenBarState extends State<BottomNavigatenBar> {
+class _BottomNavigateBarState extends State<BottomNavigateBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(

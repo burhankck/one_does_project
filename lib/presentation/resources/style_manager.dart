@@ -17,6 +17,19 @@ TextStyle _getTextStyle(
   );
 }
 
+// medium text style
+TextStyle getMediumStyle({
+  required double fontSize,
+  required Color color,
+}) {
+  return _getTextStyle(
+    fontSize,
+    FontManager.fontFamily,
+    FontWeightManager.medium,
+    color,
+  );
+}
+
 // regular style
 TextStyle getRegularStyle({required double fontSize, required Color color}) {
   return _getTextStyle(
