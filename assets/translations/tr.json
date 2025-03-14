@@ -1,0 +1,16 @@
+{
+    "appBar": {
+      "bookListAppBar": "Kitap Listesi"
+    },
+    "drawer": {
+      "themeChange": "Tema değiştir.",
+      "languageChange": "Dil değiştir",
+      "settings": "Ayarlar",
+      "turkish": "Türkçe",
+      "english": "İngilizce"
+    },
+    "textField": {
+      "search": "Arama Yapınız"
+    }
+  }
+  

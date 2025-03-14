@@ -1,0 +1,15 @@
+{
+  "appBar": {
+    "bookListAppBar": "Book List"
+  },
+  "drawer": {
+    "themeChange": "Change Theme",
+    "languageChange": "Change Language",
+    "settings": "Settings",
+    "turkish": "Turkish",
+    "english": "English"
+  },
+  "textField": {
+    "search": "Search"
+  }
+}
