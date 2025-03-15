@@ -1,45 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:one_does_project/presentation/resources/image_path_manager.dart';
-import 'package:one_does_project/presentation/resources/style_manager.dart';
 
-class BottomNavigateBar extends StatefulWidget {
-  const BottomNavigateBar({super.key});
+import 'package:one_does_project/presentation/book_list/view/book_list_screen.dart';
+import 'package:one_does_project/presentation/resources/color_manager.dart';
+
+import 'package:one_does_project/presentation/widgets/icon_text_button.dart';
+
+class NavigateBottomBar extends StatefulWidget {
+  const NavigateBottomBar({super.key});
 
   @override
-  State<BottomNavigateBar> createState() => _BottomNavigateBarState();
+  State<NavigateBottomBar> createState() => _NavigateBottomBarState();
 }
 
-class _BottomNavigateBarState extends State<BottomNavigateBar> {
+class _NavigateBottomBarState extends State<NavigateBottomBar> {
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      elevation: 5,
-      child: Wrap(
-        children: [
-          Row(
-            children: [
-              const SizedBox(width: 5),
-              Expanded(
-                child: Wrap(
-                  children: [
-                    Text("Kitap Dünyası", style: getBoldPrimaryStyle()),
-                  ],
-                ),
+    return ClipPath(
+      clipper: ShapeBorderClipper(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+      ),
+      child: BottomAppBar(
+        elevation: 5,
+        color: ColorManager.instance.grey3,
+        child: SizedBox(
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconWithTextButton(
+                icon: Icons.home_outlined,
+                title: "Anasayfa",
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
               ),
-              Container(
-                width: 45,
-                padding: const EdgeInsets.all(5),
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Image(
-                  image: AssetImage(ImagePathManager.instance.bookImage),
-                ),
+              IconWithTextButton(
+                icon: Icons.list_alt,
+                title: "Detay",
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
+              ),
+              IconWithTextButton(
+                icon: Icons.favorite_border,
+                title: "Favorilerim",
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
