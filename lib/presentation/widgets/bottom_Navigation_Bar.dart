@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:one_does_project/presentation/book_list/view/book_list_screen.dart';
+import 'package:one_does_project/presentation/resources/color_manager.dart';
 
 import 'package:one_does_project/presentation/widgets/icon_text_button.dart';
 
@@ -18,16 +19,16 @@ class _NavigateBottomBarState extends State<NavigateBottomBar> {
       clipper: ShapeBorderClipper(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30), // Sol üst köşe yuvarlatma
-            topRight: Radius.circular(30), // Sağ üst köşe yuvarlatma
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
         ),
       ),
       child: BottomAppBar(
         elevation: 5,
-        color: Colors.grey[300], // Arka plan rengini ayarlayın
+        color: ColorManager.instance.grey3,
         child: SizedBox(
-          height: 70, // Yüksekliği buradan ayarlayın
+          height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
