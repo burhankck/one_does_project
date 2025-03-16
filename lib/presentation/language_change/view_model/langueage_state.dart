@@ -10,9 +10,11 @@ abstract class LanguageState extends Equatable {
 
 class LanguageInitial extends LanguageState {
   @override
+  // TODO: son kaydedilen dil olacak (SharedPreferences || HydratedBloC)
   String get selectedLang => "tr";
 
   @override
+  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -21,6 +23,7 @@ class LanguageTurkish extends LanguageState {
   String get selectedLang => "tr";
 
   @override
+  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -29,5 +32,6 @@ class LanguageEnglish extends LanguageState {
   String get selectedLang => "en";
 
   @override
+  // TODO: implement props
   List<Object?> get props => [];
 }

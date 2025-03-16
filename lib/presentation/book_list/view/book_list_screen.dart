@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:one_does_project/app/notification/notification_manager.dart';
+import 'package:one_does_project/data/model/favorite_book_model.dart';
+import 'package:one_does_project/data/repository/favori_book_repository.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_cubit.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_state.dart';
 import 'package:one_does_project/presentation/detail_book/view/detail_book_screen.dart';
-import 'package:one_does_project/presentation/detail_book/view_model/detail_book_cubit.dart';
+import 'package:one_does_project/presentation/favorite_book/view_model/favorite_book_cubit.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
+import 'package:one_does_project/presentation/resources/extension.dart';
 import 'package:one_does_project/presentation/resources/image_path_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 import 'package:one_does_project/presentation/resources/values_manager.dart';
@@ -29,6 +33,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with _PageProperties {
   final TextEditingController _searchController = TextEditingController();
 
+  void addToFavorites(FavoriteBookModel book) async {
+    var box = await Hive.openBox<FavoriteBookModel>('favoritesBox');
+    await box.add(book); // Kitabı favorilere ekle
+  }
+
+  // Favori kitapları almak
+  Future<List<FavoriteBookModel>> getFavorites() async {
+    var box = await Hive.openBox<FavoriteBookModel>('favoritesBox');
+    return box.values.toList(); // Favori kitapları döndür
+  }
+
   @override
   void initState() {
     _initCubit();
@@ -44,6 +59,7 @@ class _HomePageState extends State<HomePage> with _PageProperties {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorManager.instance.primary,
         onPressed: () {
           final now = DateTime.now();
           final scheduledTime = now.add(Duration(seconds: 5));
@@ -60,7 +76,7 @@ class _HomePageState extends State<HomePage> with _PageProperties {
             context,
           ).showSnackBar(SnackBar(content: Text('Bildirim ayarlandı.')));
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.notification_add, color: ColorManager.instance.grey3),
       ),
       bottomNavigationBar: NavigateBottomBar(),
       appBar: CustomAppBarTitle(
@@ -103,6 +119,9 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                         itemCount: state.bookModel.data!.length,
                         itemBuilder: (context, index) {
                           final book = state.bookModel.data![index];
+                          bool isFavorite = favorites.any(
+                            (fav) => fav.id == book.id,
+                          );
                           final bookID = book.id;
                           return CustomListTileCard(
                             onTap: () {
@@ -143,11 +162,93 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                                 children: [
                                   IconButton(
                                     icon: Icon(
-                                      Icons.favorite_border,
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
                                       color: ColorManager.instance.primary,
                                     ),
-                                    onPressed: () {
-                                      // Favori ekleme işlemi yapılabilir
+                                    onPressed: () async {
+                                      final favoriteBook =
+                                          book.toFavoriteBookModel();
+
+                                      context
+                                          .read<FavoriteBooksCubit>()
+                                          .addToFavorites(favoriteBook);
+
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            elevation: 5,
+                                            backgroundColor: Colors.white,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(20),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    Icons.favorite,
+                                                    color:
+                                                        ColorManager
+                                                            .instance
+                                                            .primary,
+                                                    size: 40,
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  Text(
+                                                    'Favorilerinize Eklendi!',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          ColorManager
+                                                              .instance
+                                                              .black,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Text(
+                                                    'Kitap favorilerinize başarıyla eklendi.',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color:
+                                                          ColorManager
+                                                              .instance
+                                                              .primary,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(
+                                                        context,
+                                                      ).pop();
+                                                    },
+                                                    style:
+                                                        ElevatedButton.styleFrom(
+                                                          iconColor:
+                                                              ColorManager
+                                                                  .instance
+                                                                  .primary,
+                                                        ),
+                                                    child: Text(
+                                                      'Tamam',
+                                                      style:
+                                                          getBoldBlackStyle(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                   ),
                                 ],
@@ -176,17 +277,9 @@ class _HomePageState extends State<HomePage> with _PageProperties {
       ),
     );
   }
-
-  ConstantSearchBar _buildSearchBars() {
-    return ConstantSearchBar(
-      searchTextController: _searchController,
-      onChanged: (val) {
-        _bookListCubit.searchBookNamed(query: val);
-      },
-    );
-  }
 }
 
 mixin _PageProperties {
   late BookListCubit _bookListCubit;
+  List<FavoriteBookModel> favorites = [];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
 
@@ -38,6 +39,14 @@ class ConstantSearchBar extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadiusManager.instance.all12,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadiusManager.instance.all12,
+          borderSide: BorderSide(color: ColorManager.instance.primaryDarkColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadiusManager.instance.all12,
+          borderSide: BorderSide(color: Colors.grey),
         ),
       ),
     );

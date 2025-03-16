@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:one_does_project/app/view_model/theme_cubit.dart';
+import 'package:one_does_project/app/global/theme/view_model/theme_cubit.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
 import 'package:one_does_project/presentation/resources/icon_manager.dart';

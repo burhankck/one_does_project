@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:one_does_project/presentation/book_list/view/book_list_screen.dart';
+import 'package:one_does_project/presentation/favorite_book/view/favorite_book_screen.dart';
+import 'package:one_does_project/presentation/favorite_book/view_model/favorite_book_cubit.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 
 import 'package:one_does_project/presentation/widgets/icon_text_button.dart';
@@ -47,9 +50,12 @@ class _NavigateBottomBarState extends State<NavigateBottomBar> {
                 icon: Icons.favorite_border,
                 title: "Favorilerim",
                 onTap: () {
+                   context.read<FavoriteBooksCubit>().getFavorites();
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(
+                      builder: (context) => const FavoriteBooksScreen(),
+                    ),
                   );
                 },
               ),
