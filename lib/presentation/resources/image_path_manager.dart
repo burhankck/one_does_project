@@ -8,4 +8,5 @@ class ImagePathManager {
   final String englandFlagImage = "assets/images/england_flag.png";
   final String englandFlagsImage = "assets/images/england_flags.png";
   final String turkishFlagsImage = "assets/images/turkish_flag.png";
+  final String infoErrorImage = "assets/images/info_error.png";
 }

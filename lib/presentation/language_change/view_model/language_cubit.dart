@@ -28,6 +28,7 @@ class LanguageCubit extends Cubit<LanguageState> {
         pref.setString("language", "en");
         emit(LanguageEnglish());
         break;
+        default:
     }
   }
 

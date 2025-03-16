@@ -15,5 +15,18 @@ abstract class  LocaleKeys {
   static const drawer = 'drawer';
   static const textField_search = 'textField.search';
   static const textField = 'textField';
+  static const responseMessage_success = 'responseMessage.success';
+  static const responseMessage_noContent = 'responseMessage.noContent';
+  static const responseMessage_badRequest = 'responseMessage.badRequest';
+  static const responseMessage_forbidden = 'responseMessage.forbidden';
+  static const responseMessage_unauthorised = 'responseMessage.unauthorised';
+  static const responseMessage_notFound = 'responseMessage.notFound';
+  static const responseMessage_internalServerError = 'responseMessage.internalServerError';
+  static const responseMessage_unknown = 'responseMessage.unknown';
+  static const responseMessage_noInternetConnection = 'responseMessage.noInternetConnection';
+  static const responseMessage = 'responseMessage';
+  static const responseCode_unknown = 'responseCode.unknown';
+  static const responseCode_noInternetConnection = 'responseCode.noInternetConnection';
+  static const responseCode = 'responseCode';
 
 }

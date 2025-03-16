@@ -29,6 +29,21 @@ class CodegenLoader extends AssetLoader{
   },
   "textField": {
     "search": "Search"
+  },
+  "responseMessage": {
+    "success": "Operation successful",
+    "noContent": "No content",
+    "badRequest": "Bad request",
+    "forbidden": "Access denied",
+    "unauthorised": "Unauthorized access",
+    "notFound": "Resource not found",
+    "internalServerError": "Server error",
+    "unknown": "Unknown error",
+    "noInternetConnection": "No internet connection"
+  },
+  "responseCode": {
+    "unknown": "Unknown error",
+    "noInternetConnection": "No internet connection"
   }
 };
 static const Map<String,dynamic> _tr = {
@@ -46,6 +61,21 @@ static const Map<String,dynamic> _tr = {
   },
   "textField": {
     "search": "Arama Yapınız"
+  },
+  "responseMessage": {
+    "success": "İşlem başarılı",
+    "noContent": "İçerik yok",
+    "badRequest": "Hatalı istek",
+    "forbidden": "Erişim reddedildi",
+    "unauthorised": "Yetkisiz erişim",
+    "notFound": "Kaynak bulunamadı",
+    "internalServerError": "Sunucu hatası",
+    "unknown": "Bilinmeyen hata",
+    "noInternetConnection": "İnternet bağlantısı yok"
+  },
+  "responseCode": {
+    "unknown": "Bilinmeyen hata",
+    "noInternetConnection": "İnternet bağlantısı yok"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "tr": _tr};
