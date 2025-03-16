@@ -1,18 +1,32 @@
 {
-    "appBar": {
-      "bookListAppBar": "Kitap Listesi"
-    },
-    "drawer": {
-      "themeChange": "Tema Değiştir",
-      "languageChange": "Dili Değiştir",
-      "settings": "Ayarlar",
-      "turkish": "Türkçe",
-      "english": "İngilizce",
-      "lightTheme":"Açık Tema",
-      "darkTheme":"Koyu Tema"
-    },
-    "textField": {
-      "search": "Arama Yapınız"
-    }
+  "appBar": {
+    "bookListAppBar": "Kitap Listesi"
+  },
+  "drawer": {
+    "themeChange": "Tema Değiştir",
+    "languageChange": "Dili Değiştir",
+    "settings": "Ayarlar",
+    "turkish": "Türkçe",
+    "english": "İngilizce",
+    "lightTheme": "Açık Tema",
+    "darkTheme": "Koyu Tema"
+  },
+  "textField": {
+    "search": "Arama Yapınız"
+  },
+  "responseMessage": {
+    "success": "İşlem başarılı",
+    "noContent": "İçerik yok",
+    "badRequest": "Hatalı istek",
+    "forbidden": "Erişim reddedildi",
+    "unauthorised": "Yetkisiz erişim",
+    "notFound": "Kaynak bulunamadı",
+    "internalServerError": "Sunucu hatası",
+    "unknown": "Bilinmeyen hata",
+    "noInternetConnection": "İnternet bağlantısı yok"
+  },
+  "responseCode": {
+    "unknown": "Bilinmeyen hata",
+    "noInternetConnection": "İnternet bağlantısı yok"
   }
-  
+}

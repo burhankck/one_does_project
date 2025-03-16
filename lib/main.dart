@@ -1,25 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:one_does_project/app/notification/notification_manager.dart';
 import 'package:one_does_project/app/view_model/theme_cubit.dart';
+import 'package:one_does_project/main.reflectable.dart';
 import 'package:one_does_project/presentation/book_list/view/book_list_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_does_project/presentation/book_list/view_model/book_list_cubit.dart';
 import 'package:one_does_project/presentation/language_change/view_model/language_cubit.dart';
 import 'package:one_does_project/presentation/language_change/view_model/langueage_state.dart';
 import 'package:one_does_project/presentation/resources/theme_manager.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+  var resp = await Permission.notification.request();
   await EasyLocalization.ensureInitialized();
+  initializeReflectable();
 
-  // SharedPreferences'i başlat
   final SharedPreferences preferences = await SharedPreferences.getInstance();
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('tr')],
-      path: 'assets/translations', // Çeviri dosyalarının yolu
+      path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       startLocale: Locale(preferences.getString('language') ?? 'tr'),
       child: MyApp(preferences: preferences),
@@ -36,15 +44,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // Dil için LanguageCubit
         BlocProvider(create: (_) => LanguageCubit(preferences)),
-        // Tema için ThemeCubit
-        BlocProvider(
-          create: (_) => ThemeCubit(), 
-        ),
+
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => BookListCubit()),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(360, 690), 
+        designSize: const Size(360, 690),
         builder: (context, child) {
           return BlocBuilder<LanguageCubit, LanguageState>(
             builder: (context, langState) {

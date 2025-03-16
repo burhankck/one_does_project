@@ -8,10 +8,25 @@
     "settings": "Settings",
     "turkish": "Turkish",
     "english": "English",
-    "lightTheme":"Light Theme",
-      "darkTheme":"Dark Theme"
+    "lightTheme": "Light Theme",
+    "darkTheme": "Dark Theme"
   },
   "textField": {
     "search": "Search"
+  },
+  "responseMessage": {
+    "success": "Operation successful",
+    "noContent": "No content",
+    "badRequest": "Bad request",
+    "forbidden": "Access denied",
+    "unauthorised": "Unauthorized access",
+    "notFound": "Resource not found",
+    "internalServerError": "Server error",
+    "unknown": "Unknown error",
+    "noInternetConnection": "No internet connection"
+  },
+  "responseCode": {
+    "unknown": "Unknown error",
+    "noInternetConnection": "No internet connection"
   }
 }
