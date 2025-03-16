@@ -3,5 +3,5 @@ class ApiConstant {
 
   static String bookListEndPoint = "/api/books";
 
-  static String bookDetailEndPoint = "/api/book/19";
+  static String bookDetailEndPoint = "/api/book";
 }

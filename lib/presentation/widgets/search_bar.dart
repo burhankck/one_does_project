@@ -1,7 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
-import 'package:one_does_project/translations/locale_keys.g.dart';
+import 'package:one_does_project/presentation/resources/style_manager.dart';
 
 class ConstantSearchBar extends StatelessWidget {
   const ConstantSearchBar({
@@ -16,25 +15,29 @@ class ConstantSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onChanged: (value) {
-        onChanged!(value);
+        if (onChanged != null) {
+          onChanged!(value);
+        }
       },
       controller: searchTextController,
+      style: getBoldBlackStyle(),
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search),
-        hintText: LocaleKeys.textField_search.tr(),
+        hintText: 'Arama Yapınız',
         suffixIcon: InkWell(
           onTap: () {
             if (searchTextController != null) {
               searchTextController!.clear();
             }
-            onChanged!("");
+            if (onChanged != null) {
+              onChanged!(""); //
+            }
             FocusScope.of(context).unfocus();
           },
           child: const Icon(Icons.close),
         ),
         border: OutlineInputBorder(
-          borderRadius:
-              BorderRadiusManager.instance.all12, // Yuvarlatılmış köşeler
+          borderRadius: BorderRadiusManager.instance.all12,
         ),
       ),
     );

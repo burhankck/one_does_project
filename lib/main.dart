@@ -9,9 +9,11 @@ import 'package:one_does_project/presentation/book_list/view/book_list_screen.da
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_cubit.dart';
+import 'package:one_does_project/presentation/detail_book/view_model/detail_book_cubit.dart';
 import 'package:one_does_project/presentation/language_change/view_model/language_cubit.dart';
 import 'package:one_does_project/presentation/language_change/view_model/langueage_state.dart';
 import 'package:one_does_project/presentation/resources/theme_manager.dart';
+import 'package:one_does_project/translations/codegen_loader.g.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +30,8 @@ Future<void> main() async {
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('tr')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('tr'),
+      assetLoader: const CodegenLoader(),
       startLocale: Locale(preferences.getString('language') ?? 'tr'),
       child: MyApp(preferences: preferences),
     ),
@@ -48,6 +51,7 @@ class MyApp extends StatelessWidget {
 
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => BookListCubit()),
+        BlocProvider(create: (_) => BookDetailCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

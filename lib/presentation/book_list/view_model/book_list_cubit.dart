@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:one_does_project/data/repository/book_list_repository.dart';
+import 'package:one_does_project/data/model/book_model.dart';
+import 'package:one_does_project/data/repository/book_repository.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_state.dart';
 import 'package:one_does_project/presentation/resources/utils.dart';
 
@@ -9,7 +10,7 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
   Future<void> getBookList() async {
     emit(BookListLoading());
     await _bookListRepository
-        .getBookRepository()
+        .getBookListRepository()
         .then((bookData) {
           if (bookData != null && bookData.data != null) {
             emit(BookListDisplay(bookModel: bookData));
@@ -32,8 +33,44 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
           );
         });
   }
+
+ 
+
+  void searchBookNamed({required String query}) {
+    if (query.isEmpty) {
+      emit(BookListDisplay(bookModel: BookModel(data: allList)));
+    } else {
+      tempList =
+          allList.where((books) {
+            return books.title != null &&
+                    books.title!.toLowerCase().contains(query.toLowerCase()) ||
+                books.publisher != null &&
+                    books.publisher!.toLowerCase().contains(
+                      query.toLowerCase(),
+                    );
+          }).toList();
+
+      if (tempList.isNotEmpty) {
+        emit(BookListDisplay(bookModel: BookModel(data: tempList)));
+      } else {
+        emit(
+          BookListDisplay(
+            bookModel: BookModel(data: tempList),
+            isSearchNotFound: true,
+          ),
+        );
+      }
+    }
+  }
+
+  void clear() {
+    allList;
+    tempList;
+  }
 }
 
 mixin _CubitProperties {
-  final BookListRepository _bookListRepository = BookListRepository();
+  final BookRepository _bookListRepository = BookRepository();
+  List<Datum> allList = [];
+  List<Datum> tempList = [];
 }

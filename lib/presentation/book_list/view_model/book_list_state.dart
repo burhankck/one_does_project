@@ -8,8 +8,9 @@ class BookListLoading extends BookListState {}
 
 class BookListDisplay extends BookListState {
   final BookModel bookModel;
+  final bool isSearchNotFound;
 
-  BookListDisplay({required this.bookModel});
+  BookListDisplay({required this.bookModel, this.isSearchNotFound = false});
 }
 
 class BookListError extends BookListState {

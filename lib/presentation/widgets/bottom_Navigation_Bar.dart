@@ -42,16 +42,7 @@ class _NavigateBottomBarState extends State<NavigateBottomBar> {
                   );
                 },
               ),
-              IconWithTextButton(
-                icon: Icons.list_alt,
-                title: "Detay",
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                },
-              ),
+
               IconWithTextButton(
                 icon: Icons.favorite_border,
                 title: "Favorilerim",
