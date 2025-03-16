@@ -1,13 +1,18 @@
-// ignore_for_file: unused_element
+
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:one_does_project/app/view/change_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:one_does_project/app/global/theme/view/change_theme.dart';
 import 'package:one_does_project/presentation/language_change/view/language_screen.dart';
+import 'package:one_does_project/presentation/language_change/view_model/language_cubit.dart';
+import 'package:one_does_project/presentation/language_change/view_model/langueage_state.dart';
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 import 'package:one_does_project/presentation/resources/decoration_manager.dart';
+import 'package:one_does_project/presentation/resources/icon_manager.dart';
+import 'package:one_does_project/presentation/resources/image_path_manager.dart';
 import 'package:one_does_project/presentation/resources/style_manager.dart';
-import 'package:one_does_project/presentation/widgets/driver_item.dart';
 import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -31,7 +36,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ),
             child: Column(
               children: [
-                // Drawer Header
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: ColorManager.instance.grey3,

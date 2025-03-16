@@ -13,6 +13,7 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
         .getBookListRepository()
         .then((bookData) {
           if (bookData != null && bookData.data != null) {
+            allList = bookData.data!;
             emit(BookListDisplay(bookModel: bookData));
           } else {
             emit(
@@ -34,10 +35,8 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
         });
   }
 
- 
-
   void searchBookNamed({required String query}) {
-    if (query.isEmpty) {
+    if (query == "") {
       emit(BookListDisplay(bookModel: BookModel(data: allList)));
     } else {
       tempList =
@@ -55,7 +54,7 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
       } else {
         emit(
           BookListDisplay(
-            bookModel: BookModel(data: tempList),
+            bookModel: BookModel(data: []),
             isSearchNotFound: true,
           ),
         );
@@ -64,8 +63,7 @@ class BookListCubit extends Cubit<BookListState> with _CubitProperties {
   }
 
   void clear() {
-    allList;
-    tempList;
+    tempList = [];
   }
 }
 

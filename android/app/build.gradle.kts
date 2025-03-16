@@ -39,11 +39,15 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 dependencies {
     // For AGP 7.4+
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+   // coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 }
 
