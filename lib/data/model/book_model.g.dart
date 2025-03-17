@@ -16,9 +16,7 @@ class BookModelAdapter extends TypeAdapter<BookModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return BookModel(
-      data: (fields[0] as List?)?.cast<Datum>(),
-    );
+    return BookModel(data: (fields[0] as List?)?.cast<Datum>());
   }
 
   @override
@@ -111,10 +109,7 @@ class VillainAdapter extends TypeAdapter<Villain> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Villain(
-      name: fields[0] as String?,
-      url: fields[1] as String?,
-    );
+    return Villain(name: fields[0] as String?, url: fields[1] as String?);
   }
 
   @override

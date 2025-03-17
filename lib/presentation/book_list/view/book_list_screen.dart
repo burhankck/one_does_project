@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:one_does_project/app/notification/notification_manager.dart';
 import 'package:one_does_project/data/model/favorite_book_model.dart';
+import 'package:one_does_project/main.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_cubit.dart';
 import 'package:one_does_project/presentation/book_list/view_model/book_list_state.dart';
 import 'package:one_does_project/presentation/detail_book/view/detail_book_screen.dart';
@@ -32,17 +32,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with _PageProperties {
   final TextEditingController _searchController = TextEditingController();
 
-  void addToFavorites(FavoriteBookModel book) async {
-    var box = await Hive.openBox<FavoriteBookModel>('favoritesBox');
-    await box.add(book); // Kitabı favorilere ekle
-  }
-
-  // Favori kitapları almak
-  Future<List<FavoriteBookModel>> getFavorites() async {
-    var box = await Hive.openBox<FavoriteBookModel>('favoritesBox');
-    return box.values.toList(); // Favori kitapları döndür
-  }
-
   @override
   void initState() {
     _initCubit();
@@ -65,34 +54,21 @@ class _HomePageState extends State<HomePage> with _PageProperties {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorManager.instance.primary,
         onPressed: () async {
-          final now = DateTime.now();
-          final scheduledTime = now.add(Duration(seconds: 5));
-
-          // Scheduled time'ın gelecekte olduğundan emin olun
-          if (scheduledTime.isBefore(now)) {
-            print("Scheduled time must be in the future");
-            return;
-          }
-
-          try {
-            await NotificationService().scheduleNotification(
-              id: 1,
-              title: 'Hatırlatma',
-              body: '5 saniye sonra tetiklenen bildirim.',
-              scheduledTime: scheduledTime,
-              payload: 'target_page',
-            );
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('Bildirim ayarlandı.')));
-          } catch (e) {
-            print('Bildirim hatası: $e');
-          }
+          await NotificationRepository(
+            navigatorKey: navigatorKey,
+          ).scheduleNotification(
+            id: 1,
+            title: "Test",
+            body: "Deneme",
+            scheduledTime: DateTime.now().add(Duration(seconds: 5)),
+          );
+        
         },
         child: Icon(Icons.notification_add, color: ColorManager.instance.grey3),
       ),
 
       bottomNavigationBar: NavigateBottomBar(),
+
       appBar: CustomAppBarTitle(
         title: Text(
           LocaleKeys.appBar_bookListAppBar.tr(),
@@ -123,9 +99,8 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                 } else if (state is BookListDisplay) {
                   if (state.bookModel.data!.isEmpty) {
                     return BasicInfoCard(
-                      firstDescription: "Sonuç Bulunamadı",
-                      secondDescription:
-                          "Aradığınız kriterlere uygun kitap bulunamadı.",
+                      firstDescription: LocaleKeys.text_not_Found_title.tr(),
+                      secondDescription: LocaleKeys.text_not_Found_desc.tr(),
                     );
                   } else {
                     return Expanded(
@@ -214,7 +189,8 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                                                   ),
                                                   SizedBox(height: 20),
                                                   Text(
-                                                    'Favorilerinize Eklendi!',
+                                                    LocaleKeys.text_favorite_add
+                                                        .tr(),
                                                     style: TextStyle(
                                                       fontSize: 18,
                                                       fontWeight:
@@ -227,7 +203,9 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                                                   ),
                                                   SizedBox(height: 10),
                                                   Text(
-                                                    'Kitap favorilerinize başarıyla eklendi.',
+                                                    LocaleKeys
+                                                        .text_favorite_sucess_add
+                                                        .tr(),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontSize: 14,
@@ -252,7 +230,7 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                                                                   .primary,
                                                         ),
                                                     child: Text(
-                                                      'Tamam',
+                                                      LocaleKeys.text_ok.tr(),
                                                       style:
                                                           getBoldBlackStyle(),
                                                     ),
@@ -280,8 +258,8 @@ class _HomePageState extends State<HomePage> with _PageProperties {
                   );
                 } else {
                   return BasicInfoCard(
-                    firstDescription: "Bulunamadı",
-                    secondDescription: "Bir hata oluştu",
+                    firstDescription: LocaleKeys.text_not_founds_title.tr(),
+                    secondDescription: LocaleKeys.text_not_founds_des.tr(),
                   );
                 }
               },

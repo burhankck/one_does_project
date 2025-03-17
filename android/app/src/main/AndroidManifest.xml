@@ -1,14 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <!-- Gerekli izinler -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:label="one_does_project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-        <!-- MainActivity tanımlaması -->
+        <!-- MainActivity Tanımlaması -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -18,15 +21,11 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            
-            <!-- Flutter teması ve Firebase bildirim ayarları -->
+
+            <!-- Flutter teması -->
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
-            
-            <meta-data
-                android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="notification_channel" />
 
             <!-- MainActivity için intent filter -->
             <intent-filter>
@@ -35,23 +34,42 @@
             </intent-filter>
         </activity>
 
-        <!-- NotificationService için servis tanımlaması -->
+        <!-- Bildirimlerin düzgün çalışması için gerekli servis ve receiver'lar -->
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.receivers.ScheduledNotificationReceiver"
+            android:exported="false"/>
+
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.receivers.NotificationBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
         <service
             android:name="com.dexterous.flutterlocalnotifications.services.NotificationService"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"/>
+            android:exported="false"/>
 
         <!-- Flutter için meta-data -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
+        <meta-data
+            android:name="android.hardware.opengles.version"
+            android:value="0x00020000" /> <!-- OpenGL ES 2.0 -->
+
+            
     </application>
 
-    <!-- Text işleme izinleri (bu, Flutter'ın gerekli olduğu bir özellik) -->
+    <!-- Text işleme izinleri (Flutter için gerekli olabilir) -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+
 </manifest>

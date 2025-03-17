@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_does_project/data/model/favorite_book_model.dart';
@@ -13,6 +14,7 @@ import 'package:one_does_project/presentation/widgets/book_loading.dart';
 import 'package:one_does_project/presentation/widgets/bottom_Navigation_Bar.dart';
 import 'package:one_does_project/presentation/widgets/info_error_card.dart';
 import 'package:one_does_project/presentation/widgets/list_tile_card.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class FavoriteBooksScreen extends StatelessWidget {
   const FavoriteBooksScreen({super.key});
@@ -22,7 +24,10 @@ class FavoriteBooksScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: NavigateBottomBar(),
       appBar: CustomAppBarTitle(
-        title: Text("Favorilerim", style: getBoldPrimaryStyleTitle()),
+        title: Text(
+          LocaleKeys.appBar_favorite.tr(),
+          style: getBoldPrimaryStyleTitle(),
+        ),
       ),
 
       body: BlocBuilder<FavoriteBooksCubit, FavoriteBookState>(
@@ -94,7 +99,7 @@ class FavoriteBooksScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20),
                                     Text(
-                                      'Favorilerinizden Çıkarıldı!',
+                                      LocaleKeys.text_favorite_remove.tr(),
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -103,7 +108,8 @@ class FavoriteBooksScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 10),
                                     Text(
-                                      'Kitap favorilerinizden başarıyla çıkarıldı.',
+                                      LocaleKeys.text_favorite_succes_remove
+                                          .tr(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 14,
@@ -121,7 +127,10 @@ class FavoriteBooksScreen extends StatelessWidget {
                                         iconColor:
                                             ColorManager.instance.primary,
                                       ),
-                                      child: Text('Tamam', style: getBoldBlackStyle(),),
+                                      child: Text(
+                                        LocaleKeys.text_ok.tr(),
+                                        style: getBoldBlackStyle(),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -142,8 +151,8 @@ class FavoriteBooksScreen extends StatelessWidget {
             );
           } else {
             return BasicInfoCard(
-              firstDescription: "Favori Bulunamadı",
-              secondDescription: "Favoriye eklenen kitap bulunamadı",
+              firstDescription: LocaleKeys.text_no_favorite_found_title.tr(),
+              secondDescription: LocaleKeys.text_no_favorite_found_desc.tr(),
             );
           }
         },

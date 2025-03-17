@@ -19,7 +19,7 @@ void main() {
     final preferences = await SharedPreferences.getInstance();
 
     // MyApp widget'ını preferences ile başlat
-    await tester.pumpWidget(MyApp(preferences: preferences));
+    await tester.pumpWidget(MyApp(preferences: preferences, navigatorKey: navigatorKey,));
 
     // Counter başlangıçta 0 mı?
     expect(find.text('0'), findsOneWidget);

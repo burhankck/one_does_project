@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +8,7 @@ import 'package:one_does_project/presentation/favorite_book/view_model/favorite_
 import 'package:one_does_project/presentation/resources/color_manager.dart';
 
 import 'package:one_does_project/presentation/widgets/icon_text_button.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class NavigateBottomBar extends StatefulWidget {
   const NavigateBottomBar({super.key});
@@ -37,7 +39,7 @@ class _NavigateBottomBarState extends State<NavigateBottomBar> {
             children: <Widget>[
               IconWithTextButton(
                 icon: Icons.home_outlined,
-                title: "Anasayfa",
+                title: LocaleKeys.text_home_page.tr(),
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
@@ -48,7 +50,7 @@ class _NavigateBottomBarState extends State<NavigateBottomBar> {
 
               IconWithTextButton(
                 icon: Icons.favorite_border,
-                title: "Favorilerim",
+                title: LocaleKeys.text_my_favorite.tr(),
                 onTap: () {
                    context.read<FavoriteBooksCubit>().getFavorites();
                   Navigator.pushReplacement(

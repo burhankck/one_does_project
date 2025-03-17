@@ -1,110 +1,111 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:one_does_project/presentation/favorite_book/view/favorite_book_screen.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-class NotificationService {
-  static final NotificationService _instance = NotificationService._internal();
-  factory NotificationService() => _instance;
+class NotificationRepository {
+  final GlobalKey<NavigatorState> navigatorKey;
+  NotificationRepository({required this.navigatorKey});
 
-  final FlutterLocalNotificationsPlugin _notificationsPlugin =
+  final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  NotificationService._internal();
-
-  Future<void> init() async {
-    tz.initializeTimeZones();
-
-    const AndroidInitializationSettings androidInitializationSettings =
+  /// **Bildirimleri Başlatan Fonksiyon**
+  Future<void> initNotification() async {
+    // Android Başlatma Ayarları
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(android: androidInitializationSettings);
+    // iOS Başlatma Ayarları
+    final DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+        );
 
-    await _notificationsPlugin.initialize(
+    // Genel Başlatma Ayarları
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS,
+        );
+
+    // Bildirimleri Başlat
+    await notificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) {
-        _handleNotificationClick(response.payload);
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        _notificationOnTap(response);
       },
     );
 
-    // Create the notification channel for Android 8.0 (API level 26) and above
-    const String channelId = 'notification_channel';
-    const String channelName = 'Notification Channel';
-    const String channelDescription = 'Channel for important notifications';
-
-    final AndroidNotificationChannel androidNotificationChannel =
-        AndroidNotificationChannel(
-      channelId, // ID of the channel
-      channelName, // Name of the channel
-      description: channelDescription, // Description of the channel
-      importance: Importance.high, // Set the importance level
+    // **Android için Bildirim Kanalı Tanımlama**
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'channelId', // Kanal ID
+      'channelName', // Kanal İsmi
+      description: 'Notification Process',
+      importance: Importance.max,
     );
 
-    // Register the notification channel with the plugin
-    await _notificationsPlugin
+    // Android için bildirimi kanalına bağlama
+    await notificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(androidNotificationChannel);
+        ?.createNotificationChannel(channel);
+
+    // Zaman dilimlerini başlat
+    tz.initializeTimeZones();
   }
 
-  void _handleNotificationClick(String? payload) {
-    if (payload != null) {
-      print('Notification payload: $payload');
-      // Navigate or perform some action
-    }
+  /// **Bildirim tıklandığında açılacak ekran**
+  void _notificationOnTap(NotificationResponse response) {
+    navigatorKey.currentState?.push(
+      MaterialPageRoute(
+        builder: (context) => FavoriteBooksScreen(),
+      ),
+    );
   }
 
+  /// **Bildirimin Detaylarını Tanımlama**
+  NotificationDetails _notificationDetails() {
+    return const NotificationDetails(
+      android: AndroidNotificationDetails(
+        'channelId',
+        'channelName',
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: '@mipmap/ic_launcher',
+      ),
+      iOS: DarwinNotificationDetails(),
+    );
+  }
+
+  /// **Anlık Bildirim Gönderme**
+  Future<void> notificationShow({
+    int id = 0,
+    String? title,
+    String? body,
+  }) async {
+    await notificationsPlugin.show(id, title, body, _notificationDetails());
+  }
+
+  /// **Zamanlanmış Bildirim Gönderme**
   Future<void> scheduleNotification({
     required int id,
-    required String title,
-    required String body,
+    String? title,
+    String? body,
     required DateTime scheduledTime,
-    String? payload,
   }) async {
-    final DateTime currentTime = DateTime.now();
-
-    if (scheduledTime.isBefore(currentTime)) {
-      print("Scheduled time must be in the future");
-      return; // Prevent scheduling in the past
-    }
-
-    final tz.TZDateTime scheduledDateTime = tz.TZDateTime.from(
-      scheduledTime,
-      tz.local,
-    );
-
-    // Define notification details
-    const String channelId = 'notification_channel';
-    final AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      channelId,
-      'Notification Channel',
-      channelDescription: 'Channel for important notifications',
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-    );
-
-    final NotificationDetails notificationDetails = NotificationDetails(
-      android: androidNotificationDetails,
-    );
-
-    await _notificationsPlugin.zonedSchedule(
+    await notificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      scheduledDateTime,
-      notificationDetails,
-      payload: payload,
-      androidScheduleMode: AndroidScheduleMode.exact,
+      tz.TZDateTime.from(scheduledTime, tz.local),
+       // **Zamanı doğru ayarla**
+      _notificationDetails(), // **Doğru bildirim detaylarını ekle**
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      matchDateTimeComponents: DateTimeComponents.time, // **Günün belirli saatinde çalıştır**
     );
-  }
-
-  Future<void> cancelNotification(int id) async {
-    await _notificationsPlugin.cancel(id);
-  }
-
-  Future<void> cancelAllNotifications() async {
-    await _notificationsPlugin.cancelAll();
   }
 }
