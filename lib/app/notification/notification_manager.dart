@@ -89,7 +89,6 @@ class NotificationService {
       android: androidNotificationDetails,
     );
 
-    // Schedule the notification
     await _notificationsPlugin.zonedSchedule(
       id,
       title,
@@ -98,8 +97,6 @@ class NotificationService {
       notificationDetails,
       payload: payload,
       androidScheduleMode: AndroidScheduleMode.exact,
-      // uiLocalNotificationDateInterpretation:
-      //     UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 

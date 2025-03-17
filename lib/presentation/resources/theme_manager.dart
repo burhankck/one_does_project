@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppThemes {
-  // Dark Theme özelleştirme
+  
   static ThemeData darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Color.fromARGB(
       255,
       235,
       229,
       229,
-    ), // Koyu gri arka plan
+    ), 
     appBarTheme: AppBarTheme(
       backgroundColor: Color.fromARGB(
         255,
         133,
         129,
         129,
-      ), // AppBar'daki koyu gri
+      ), 
     ),
     primaryColor: Colors.grey,
     textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
