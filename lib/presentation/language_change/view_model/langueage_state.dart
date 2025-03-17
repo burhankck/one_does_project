@@ -5,33 +5,27 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
 abstract class LanguageState extends Equatable {
-  String selectedLang = "tr";
+  final String selectedLang;
+  const LanguageState(this.selectedLang);  // selectedLang'i constructor ile alıyoruz.
 }
 
 class LanguageInitial extends LanguageState {
+  const LanguageInitial() : super("tr");  // Varsayılan olarak 'tr' dilini gönderiyoruz.
+  
   @override
-  // TODO: son kaydedilen dil olacak (SharedPreferences || HydratedBloC)
-  String get selectedLang => "tr";
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [selectedLang];  // selectedLang'i props içine alıyoruz.
 }
 
 class LanguageTurkish extends LanguageState {
+  const LanguageTurkish() : super("tr");
+  
   @override
-  String get selectedLang => "tr";
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [selectedLang];
 }
 
 class LanguageEnglish extends LanguageState {
+  const LanguageEnglish() : super("en");
+  
   @override
-  String get selectedLang => "en";
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [selectedLang];
 }

@@ -1,6 +1,8 @@
 {
   "appBar": {
-    "bookListAppBar": "Kitap Listesi"
+    "bookListAppBar": "Kitap Listesi",
+    "favorite": "Favorilerim",
+    "detail_book":"Kitap Detayları"
   },
   "drawer": {
     "themeChange": "Tema Değiştir",
@@ -28,5 +30,22 @@
   "responseCode": {
     "unknown": "Bilinmeyen hata",
     "noInternetConnection": "İnternet bağlantısı yok"
+  },
+  "text": { 
+    "book_List": "Kitap Listesi",
+    "book_body": "Kitaplarınızı görüntüleyebilirsiniz",
+    "not_Found_title": "Sonuç Bulunamadı",
+    "not_Found_desc":"Aradığınız kriterlere uygun kitap bulunamadı.",
+    "favorite_add": "Favorilerinize Eklendi!",
+    "favorite_sucess_add":"Kitap favorilerinize başarıyla eklendi.",
+    "ok": "Tamam",
+    "not_founds_title":"Bulunamadı",
+    "not_founds_des": "Bir hata oluştu",
+    "favorite_remove" :"Favorilerinizden Çıkarıldı!",
+    "favorite_succes_remove":"Kitap favorilerinizden başarıyla çıkarıldı",
+    "no_favorite_found_title":"Favori Bulunamadı",
+    "no_favorite_found_desc" :"Favoriye eklenen kitap bulunamadı",
+    "home_page":"AnaSayfa",
+    "my_favorite":"Favorilerim"
   }
 }

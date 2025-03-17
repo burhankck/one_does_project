@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:one_does_project/presentation/resources/style_manager.dart';
 import 'package:one_does_project/presentation/widgets/appbar_menu.dart';
 import 'package:one_does_project/presentation/widgets/book_loading.dart';
 import 'package:one_does_project/presentation/widgets/bottom_Navigation_Bar.dart';
+import 'package:one_does_project/translations/locale_keys.g.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final int bookID;
@@ -36,7 +38,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
       child: Scaffold(
         bottomNavigationBar: NavigateBottomBar(),
         appBar: CustomAppBarTitle(
-          title: Text("Kitap Detayları", style: getBoldPrimaryStyleTitle()),
+          title: Text(LocaleKeys.appBar_detail_book.tr(), style: getBoldPrimaryStyleTitle()),
         ),
 
         body: Padding(

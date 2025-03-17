@@ -21,7 +21,9 @@ class BookRepository {
     }
   }
 
-  Future<BookDetailModel?> getBookDetailRepository({required int bookID}) async {
+  Future<BookDetailModel?> getBookDetailRepository({
+    required int bookID,
+  }) async {
     try {
       dynamic response = await NetworkManager.instance
           .getApiResponse<BookDetailModel>(

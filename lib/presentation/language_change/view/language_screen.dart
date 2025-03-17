@@ -49,7 +49,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                       : SizedBoxManager.instance.shrink,
               onTap: () {
                 context.setLocale(const Locale("tr"));
-                context.read<LanguageCubit>().changeLanguage( context, false);
+                context.read<LanguageCubit>().changeLanguage(false);
               },
             ),
             const Divider(color: Colors.grey),
@@ -69,7 +69,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                       : SizedBoxManager.instance.shrink,
               onTap: () {
                 context.setLocale(const Locale("en"));
-                context.read<LanguageCubit>().changeLanguage(context,true);
+                context.read<LanguageCubit>().changeLanguage(true);
               },
             ),
           ],

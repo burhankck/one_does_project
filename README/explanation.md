@@ -1,0 +1,51 @@
+-	 Proje Geliştirme Süreci ve Özellikler
+-	
+-	1. Proje Başlangıcı ve Yapılandırma
+-	Proje, Clean Architecture prensiplerine uygun bir klasör yapısı ile başlatıldı:
+-	Domain Layer: İş mantığı ve modeller.
+-	Data Layer: Veri yönetimi ve API işlemleri.
+-	Presentation Layer: UI ve ekranlar.
+-	
+-	GitHub branch yapısı kullanılarak gerçek projelerdeki gibi versiyon kontrolü sağlandı.
+-	2. Widget ve Manager Sınıfları
+-	Uygulamada tekrar kullanılabilir Widget ve Manager sınıfları oluşturuldu.
+-	Manager sınıfları, Singleton Design Pattern ile yapılandırılarak merkezi bir yapı sağlandı.
+-	
+-	3. State Yönetimi
+-	Projede, Bloc Cubit kullanılarak state yönetimi gerçekleştirildi.
+-	Hata kontrolü için bir Error Handler sınıfı geliştirildi ve entegre edildi.
+-	
+-	4. Network Yapılandırması
+-	NetworkManager sınıfı oluşturularak API istekleri yönetildi.
+-	Gelen veri tipi (liste veya model) kontrol edilerek dinamik bir yapı oluşturuldu.
+-	Her response modeli, GeneralTypeModel sınıfından türetilerek fromJson ile JSON dönüşümleri düzenlendi.
+-	ApiConstants sınıfı kullanılarak API uç noktaları merkezi bir yapı altında toplandı.
+-	
+-	5. HomePage Ekranı
+-	HomePage ekran tasarımı tamamlandı ve Bloc ile servis entegrasyonu sağlandı.
+-	Arama Özelliği:
+-	API ye istek atmadan mevcut liste üzerinde arama yapılabilecek şekilde geliştirildi.
+-	Tema ve Dil Desteği:
+-	Drawer menüsüne tema değişikliği ve dil desteği (Easy Localization) eklendi.
+-	Favori Kitaplar:
+-	Kitaplar üzerinde bulunan favorite icon ile favorilere ekleme ve çıkarma işlemleri yapıldı.
+-	Bu işlem için Hive paketi kullanıldı.
+-	Detay Sayfası:
+-	Liste üzerindeki bir elemana tıklandığında, API den gelen ID bilgisine göre detay sayfasına yönlendirme sağlandı.
+-	
+-	6. Bildirim Yönetimi
+-	flutter_local_notifications paketi ile bir NotificationManager sınıfı oluşturuldu.
+-	Bildirimlerin gerçek cihazlarda test edilmesi önerilmektedir.
+-	
+-	7. İnternet Kontrolü ve Offline Çalışma
+-	connectivity_plus paketi ile internet bağlantısı kontrol edildi.
+-	İnternet olmadığında, verilerin Hive üzerinden çekilmesi için çalışma yapıldı.
+-	Ancak alınan bir hata nedeniyle internetsiz ortamda verilerin gösterimi tamamlanamadı.
+-	Hive ile g.dart dosyaları oluşturularak Adapter sınıfları hazırlandı.
+-	
+-	Özet:
+-	Proje, modern Flutter mimarisi ve gelişmiş tasarım prensipleri kullanılarak geliştirildi. Performans, yeniden kullanılabilirlik
+-	 ve kullanıcı deneyimi ön planda tutularak başarılı bir uygulama ortaya kondu.
+-	
+
+
